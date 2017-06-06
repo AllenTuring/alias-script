@@ -26,6 +26,7 @@ alias devbranch='git checkout dev'
 alias mainbranch='git checkout master'
 pushtodev() { devbranch; merge "$1"; checkout "$1"; }
 alias devtomain="mainbranch; merge dev; devbranch;"
+pushbranch() { checkout "$2"; merge "$1"; checkout "$1"; }
 propagate() { devbranch; merge "$1"; mainbranch; merge dev; checkout "$1"; }
 
 newrepo() {
