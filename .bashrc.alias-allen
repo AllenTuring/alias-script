@@ -1,0 +1,37 @@
+alias search='grep'
+
+alias status='git status'
+
+alias log='git log --pretty=oneline'
+alias history='git log'
+alias commit='git commit -a -m'
+alias uncommit='git reset --soft HEAD~1'
+alias stash='git stash'
+
+alias track='git add'
+alias untrack='git rm -r --cached'
+alias mute='git update-index --assume-unchanged'
+alias unmute='git update-index --no-assume-unchanged'
+
+alias pushnew='git push -u origin'
+alias pull='git pull'
+alias push='git push'
+alias sync='git push --all; git pull;'
+
+alias checkout='git checkout'
+alias newbranch='git checkout -b'
+alias merge='git merge'
+
+alias devbranch='git checkout dev'
+alias mainbranch='git checkout master'
+pushtodev() { devbranch; merge "$1"; checkout "$1"; }
+alias devtomain="mainbranch; merge dev; devbranch;"
+propagate() { devbranch; merge "$1"; mainbranch; merge dev; checkout "$1"; }
+
+newrepo() {
+	git init;
+	touch readme.md; track readme.md;
+	touch .gitignore; track .gitignore;
+	commit "Initial commit.";
+	newbranch dev;
+}
