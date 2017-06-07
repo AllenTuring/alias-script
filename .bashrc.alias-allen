@@ -13,20 +13,21 @@ alias untrack='git rm -r --cached'
 alias mute='git update-index --assume-unchanged'
 alias unmute='git update-index --no-assume-unchanged'
 
-alias pushnew='git push -u origin'
 alias pull='git pull'
 alias push='git push'
 alias sync='git push --all; git pull;'
 
+alias branches='git branch -a'
 alias checkout='git checkout'
-alias newbranch='git checkout -b'
+newbranch() { git checkout -b "$1"; git push -u origin "$1"; }
+rmbranch() { git branch -D "$1"; git push origin --delete "$1" }
 alias merge='git merge'
 
 alias devbranch='git checkout dev'
 alias mainbranch='git checkout master'
 pushtodev() { devbranch; merge "$1"; checkout "$1"; }
 alias devtomain="mainbranch; merge dev; devbranch;"
-pushbranch() { checkout "$2"; merge "$1"; checkout "$1"; }
+pushtobranch() { checkout "$2"; merge "$1"; checkout "$1"; }
 propagate() { devbranch; merge "$1"; mainbranch; merge dev; checkout "$1"; }
 
 newrepo() {
